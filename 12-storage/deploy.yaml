@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-deployment
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: demo-pods
+  template:
+    metadata:
+      labels:
+        app: demo-pods
+    spec:
+      containers:
+      - name: alpine
+        image: alpine:latest
+        command: ["/bin/sh","-c","sleep 3600"]
+        volumeMounts:
+          - name: shared-data
+            mountPath: /alpine-data
+      volumes:
+      - name: shared-data
+        persistentVolumeClaim:
+          claimName: pvc-1

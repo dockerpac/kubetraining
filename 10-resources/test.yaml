@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-crash
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: demo-pods
+  template:
+    metadata:
+      labels:
+        app: demo-pods
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+               matchLabels:
+                app: demo-pods
+              topologyKey: "kubernetes.io/hostname"
+      containers:
+      - name: crash
+        image: mderela/apache-nifi:1.1.1
+        resources:
+          limits:
+            memory: "1200Mi"

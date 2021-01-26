@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stress-low
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: stress-low
+  template:
+    metadata:
+      labels:
+        app: stress-low
+    spec:
+      containers:
+      - name: stress
+        image: polinux/stress
+        command: ["stress"]
+        args: ["--vm", "1", "--vm-bytes", "128M", "--vm-hang", "1"]
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+          requests:
+            memory: "128Mi"
+            cpu: "200m"

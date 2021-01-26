@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: priv-escalation-deny
+  labels:
+    name: priv-escalation-deny
+spec:
+  containers:
+  - name: priv-escalation-deny
+    image: dockerpac/priv-escalation:latest
+    command: [ "/bin/sh", "-c", "sleep 240" ]
+    imagePullPolicy: Always
+    securityContext:
+      allowPrivilegeEscalation: false
+      runAsNonRoot: true

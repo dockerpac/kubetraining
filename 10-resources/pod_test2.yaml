@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: res-test2
+spec:
+  containers:
+  - name: res-test2
+    image: alpine:latest
+    resources:
+      limits:
+        cpu: 1
+        memory: "200Mi"
+      requests:
+        memory: "200Mi"
+    command: ["/bin/sh","-c","sleep 3600"]

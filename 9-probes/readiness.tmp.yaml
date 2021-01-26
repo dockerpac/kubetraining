@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: readiness-deployment
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: readiness-deployment
+  template:
+    metadata:
+      labels:
+        app: readiness-deployment
+    spec:
+      nodeName: ip-172-31-37-222.eu-central-1.compute.internal
+      containers:
+      - name: readiness-deployment
+        image: alpine
+        command: ["sh", "-c", "touch /tmp/healthy && sleep 86400"]
+        readinessProbe:
+          exec:
+            command:
+            - sleep
+            - "5"
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 10

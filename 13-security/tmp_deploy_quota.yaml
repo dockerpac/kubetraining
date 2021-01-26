@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-pods
+  template:
+    metadata:
+      labels:
+        app: demo-pods
+    spec:
+      containers:
+      - name: pinger
+        image: centos:7
+        command: ["ping", "8.8.8.8"]
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 100m
+            memory: 100Mi

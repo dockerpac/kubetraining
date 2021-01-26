@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-deployment
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: demo-pods
+  template:
+    metadata:
+      labels:
+        app: demo-pods
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.7.9
+        resources:
+          requests:
+            memory: "2Gi"
+      - name: pinger
+        image: centos:7
+        command: ["ping", "8.8.8.8"]
+        resources:
+          requests:
+            memory: "2Gi"

@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: destination
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dest
+  template:
+    metadata:
+      labels:
+        app: dest
+    spec:
+      containers:
+      - name: who
+        image: training/whoami:latest

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-deployment
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: demo-pods
+  template:
+    metadata:
+      labels:
+        app: demo-pods
+    spec:
+      containers:
+      - name: nginx
+        image: dtr.pac-test.dockerps.io/admin/nginx:latest
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: regcred
